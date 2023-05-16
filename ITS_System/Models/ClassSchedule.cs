@@ -24,14 +24,20 @@ namespace ITS_System.Models
         public Room Room { get; set; }
 
         [Required]
+        public int RoomID { get; set; }
+
+        [Required]
         [ForeignKey("RoomId")]
         public int RoomId { get; set; }
+
+        [ForeignKey("InstructorId")]
+        public string InstructorId { get; set; }
 
         public ClassStatus Status { get; set; }
 
         public virtual List<WaitingListEntry> WaitingList { get; set; }
         public virtual List<Booking> Attendees { get; set; }
-        public virtual List<Equipment> Equpiments { get; set; }
+        public virtual List<EquipmentListEntry> Equpiments { get; set; }
 
     }
 }
