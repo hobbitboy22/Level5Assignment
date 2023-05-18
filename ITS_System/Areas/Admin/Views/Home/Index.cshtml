@@ -9,52 +9,60 @@
 <div class = "container">
     <div class="container text-center">
         <div class="row align-items-start">
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
+            <div class="col-4 mt-3">
+                <div class="card" style="width: 18rem; height: 18rem">
+                  <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title"></h5>
                     <p class="card-text">Click to manage roles</p>
-                    <a class="btn btn-primary" asp-area="Admin" asp-controller="RolesManager" asp-action="Index">Manage Roles</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text">Click to manage users</p>
-                    <a class="btn btn-primary" asp-area="Admin" asp-controller="UserRolesManager" asp-action="Index">Manage Users</a>
+                    <div class = "card-footer">
+                        <a class="btn btn-primary mx-auto" asp-area="Admin" asp-controller="RolesManager" asp-action="Index">Manage Roles</a>
+                    </div>
                   </div>
                 </div>  
             </div>
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
+            <div class="col-4 mt-3">
+                <div class="card" style="width: 18rem; height: 18rem">
+                  <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title"></h5>
-                    <p class="card-text">Click to manage rooms</p>
-                    <a class="btn btn-primary" asp-area="Admin" asp-controller="Room" asp-action="Index">Manage Rooms</a>
+                    <p class="card-text">Click to manage users</p>
+                    <div class = "card-footer">
+                        <a class="btn btn-primary mx-auto" asp-area="Admin" asp-controller="UserRolesManager" asp-action="Index">Manage Users</a>
+                    </div>
                   </div>
+                </div>  
+            </div>
+            <div class="col-4 mt-3">
+                <div class="card" style="width: 18rem; height: 18rem;">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">Click to manage rooms</p>
+                        <div class="card-footer">
+                            <a class="btn btn-primary mx-auto" asp-area="Admin" asp-controller="Room" asp-action="Index">Manage Rooms</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class = "col-2">
-
-            </div>
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text">Click to manage equipment</p>
-                    <a class="btn btn-primary" asp-area="Admin" asp-controller="Equipment" asp-action="Index">Manage Equipment</a>
-                  </div>
+            <div class = "col-2"></div>
+            <div class="col-4" style="margin-top: 10%;">
+                <div class="card" style="width: 18rem; height: 18rem;">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">Click to manage equipment</p>
+                        <div class="card-footer">
+                            <a class="btn btn-primary mx-auto" asp-area="Admin" asp-controller="UserRolesManager" asp-action="Index">Manage Equipment</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text">Click to manage classes</p>
-                    <a class = "btn btn-primary" asp-area = "Admin" asp-controller = "ClassSchedules" asp-action = "Index">Manage Classes</a>
-                  </div>
+            <div class="col-4" style="margin-top: 10%;">
+                <div class="card" style="width: 18rem; height: 18rem;">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text">Click to manage classes</p>
+                        <div class="card-footer">
+                            <a class="btn btn-primary mx-auto" asp-area="Admin" asp-controller="ClassSchedules" asp-action="Index">Manage Classes</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

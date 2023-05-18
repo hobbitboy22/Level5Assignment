@@ -69,16 +69,27 @@ namespace ITS_System.Data
             );
 
 
-             builder.Entity<IdentityRole>().HasData(
-                 new IdentityRole()
-                 {
-                     Id = Guid.NewGuid().ToString(),
-                     Name = "Management_Team",
-                     NormalizedName = "Management_Team".ToUpper(),
-                     ConcurrencyStamp = Guid.NewGuid().ToString()
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Management_Team",
+                    NormalizedName = "Management_Team".ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
 
-                 }
-             );
+                }
+            );
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Instructor",
+                    NormalizedName = "Instructor".ToUpper(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+
+                }
+            );
 
         }
 

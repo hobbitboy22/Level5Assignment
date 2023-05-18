@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlexAppealFitness.Areas.Admin
 {
@@ -14,10 +15,12 @@ namespace FlexAppealFitness.Areas.Admin
     public class ClassSchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ClassSchedulesController(ApplicationDbContext context)
+        public ClassSchedulesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Admin/ClassSchedules
@@ -48,10 +51,10 @@ namespace FlexAppealFitness.Areas.Admin
         }
 
         // GET: Admin/ClassSchedules/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
-            ViewData["InstructorId"] = new SelectList(_context.Users, "Id","Email");
+            ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id","Email");
             return View();
         }
 
@@ -68,8 +71,9 @@ namespace FlexAppealFitness.Areas.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
-            ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email");
             return View(classSchedule);
         }
 
@@ -88,6 +92,7 @@ namespace FlexAppealFitness.Areas.Admin
             }
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["EquipmentId"] = new SelectList(_context.Equpiments, "Id", "Description");
             return View(classSchedule);
         }
 
