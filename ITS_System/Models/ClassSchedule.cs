@@ -37,7 +37,7 @@ namespace ITS_System.Models
 
         public virtual List<WaitingListEntry> WaitingList { get; set; }
         public virtual List<Booking> Attendees { get; set; }
-        public virtual List<EquipmentListEntry> Equpiments { get; set; }
+        public virtual List<EquipmentListEntry> EqupimentList { get; set; }
 
     }
 }

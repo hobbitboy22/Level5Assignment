@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using FlexAppealFitness.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace FlexAppealFitness.Areas.Admin
@@ -55,6 +58,7 @@ namespace FlexAppealFitness.Areas.Admin
         {
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description");
             ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id","Email");
+            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Name");
             return View();
         }
 
@@ -63,17 +67,51 @@ namespace FlexAppealFitness.Areas.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateTime,MaxNumbersOfBooking,RoomId,Status")] ClassSchedule classSchedule)
+        public async Task<IActionResult> Create(ClassSchedule classSchedule, List<int> EquipmentList)
         {
-            if (ModelState.IsValid)
+            if (/*classSchedule.ClassName != null &&*/
+                classSchedule.InstructorId != null &&
+                classSchedule.DateTime != null &&
+                classSchedule.RoomId != null &&
+                classSchedule.MaxNumbersOfBooking > 0 &&
+                classSchedule.Status != null)
+
             {
-                _context.Add(classSchedule);
+
+                _context.Schedule.Add(classSchedule);
+
                 await _context.SaveChangesAsync();
+
+                foreach (int equipmentId in EquipmentList)
+
+                {
+
+                    var equipmentListEntry = new EquipmentListEntry
+                    {
+
+                        Equipment = _context.Equpiments.Find(equipmentId),
+
+                        AddedOn = DateTime.Now
+                    };
+
+                    classSchedule.EqupimentList.Add(equipmentListEntry);
+
+                }
+
+                _context.Schedule.Update(classSchedule);
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
+
             }
 
+            ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email", classSchedule.InstructorId);
+
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
-            ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email");
+
+            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Name");
+
             return View(classSchedule);
         }
 
@@ -92,7 +130,7 @@ namespace FlexAppealFitness.Areas.Admin
             }
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             ViewData["InstructorId"] = new SelectList(_context.Users, "Id", "Email");
-            ViewData["EquipmentId"] = new SelectList(_context.Equpiments, "Id", "Description");
+            ViewData["EquipmentList"] = new SelectList(_context.Equpiments, "Id", "Name");
             return View(classSchedule);
         }
 
