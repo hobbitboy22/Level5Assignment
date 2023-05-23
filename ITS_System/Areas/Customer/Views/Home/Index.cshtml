@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Customer Dashboard</h1>  
+</div>
+
+<div class = "container">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-9 mt-3">
+                <div class="card" style="width: 18rem; height: 18rem">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">Click to book a class</p>
+                    <div class = "card-footer">
+                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="ClassSchedules" asp-action="Index">Book Class</a>
+                    </div>
+                  </div>
+                </div>  
+            </div>
+            <div class="col-3 mt-3">
+                <div class="card" style="width: 18rem; height: 18rem">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">Click to view bookings</p>
+                    <div class = "card-footer">
+                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="Bookings" asp-action="Index">View Bookings</a>
+                    </div>
+                  </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>

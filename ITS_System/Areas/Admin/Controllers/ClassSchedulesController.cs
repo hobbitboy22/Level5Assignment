@@ -72,6 +72,7 @@ namespace FlexAppealFitness.Areas.Admin
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewData["Attendee"] = 
             ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Description", classSchedule.RoomId);
             ViewData["InstructorId"] = new SelectList(await _userManager.GetUsersInRoleAsync("Instructor"), "Id", "Email");
             return View(classSchedule);
