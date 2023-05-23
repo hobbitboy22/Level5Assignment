@@ -27,9 +27,6 @@ namespace ITS_System.Models
         public Room Room { get; set; }
 
         [Required]
-        public int RoomID { get; set; }
-
-        [Required]
         [ForeignKey("RoomId")]
         public int RoomId { get; set; }
 

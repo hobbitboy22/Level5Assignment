@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ITS_System.Migrations
+namespace FlexAppealFitness.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -16,6 +16,30 @@ namespace ITS_System.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
+
+            modelBuilder.Entity("FlexAppealFitness.Models.EquipmentListEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AddedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ClassScheduleId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquipmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassScheduleId");
+
+                    b.HasIndex("EquipmentId");
+
+                    b.ToTable("EquipmentListEntry");
+                });
 
             modelBuilder.Entity("FlexAppealFitness.Models.WaitingListEntry", b =>
                 {
@@ -86,6 +110,10 @@ namespace ITS_System.Migrations
                     b.Property<int>("MaxNumbersOfBooking")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("INTEGER");
 
@@ -107,9 +135,6 @@ namespace ITS_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ClassScheduleId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -119,8 +144,6 @@ namespace ITS_System.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClassScheduleId");
 
                     b.ToTable("Equpiments");
                 });
@@ -175,31 +198,38 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d75b1b0-f968-4487-add8-aa33ea1f4ede",
-                            ConcurrencyStamp = "c74d4460-c3ed-4f24-a0ce-a9c9c548e09e",
+                            Id = "0f49d2cc-afbc-47ff-92f8-03ccaac8526a",
+                            ConcurrencyStamp = "d1945d4d-0fa3-4520-8d2a-b6569024c812",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "551960b0-a037-4315-a2cd-c44248e59ca0",
-                            ConcurrencyStamp = "a582059d-23f3-4844-be51-62b2eab0bad2",
+                            Id = "bae0c29b-076e-4ca8-9f49-5a4025295476",
+                            ConcurrencyStamp = "4a9d9401-f247-45e0-906d-816a6cc52533",
                             Name = "Studio_Staff",
                             NormalizedName = "STUDIO_STAFF"
                         },
                         new
                         {
-                            Id = "6c396a4c-3a2e-48e9-8077-61796e208ebe",
-                            ConcurrencyStamp = "bfa7d29e-95b9-455b-a541-6bb356859cff",
+                            Id = "4c45783e-0bc1-439e-9d91-2f0a7a9614af",
+                            ConcurrencyStamp = "3eae6c61-ef48-4c9b-b098-27f30b7197c9",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "f8b8ecb9-5a56-4c9a-ace4-0b5225fb6575",
-                            ConcurrencyStamp = "6b1098e0-99bf-4e81-b841-ab1fe80d0afc",
+                            Id = "ff8bffc5-29c4-4ec6-8f77-f333a239c8d7",
+                            ConcurrencyStamp = "45cdb889-1cf2-4c0b-b2f5-e3cbcc834b15",
                             Name = "Management_Team",
                             NormalizedName = "MANAGEMENT_TEAM"
+                        },
+                        new
+                        {
+                            Id = "f457c893-832d-4591-a02a-422d18591232",
+                            ConcurrencyStamp = "e9ecb8b0-9675-458f-aeab-95620994d75e",
+                            Name = "Instructor",
+                            NormalizedName = "INSTRUCTOR"
                         });
                 });
 
@@ -292,17 +322,17 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e9bdd798-7adf-4a73-ab48-955b5b6e169d",
+                            Id = "92539951-1b9b-4758-bc42-ab8ff0ea9e23",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "adeff7e9-9696-470b-afc5-007ab5d75c2f",
+                            ConcurrencyStamp = "5f421a7a-1885-4c6d-9119-bf5558524dd4",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH8vyYGdnz/rhgXDVc7MrHztKQOVJqfmgRfDSgD3RzWzJzInyJ/3BWAeYAwi3iFKTA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMzXp9Y4GS6kzZKvFzmm3XFcv+H/rflOYMjMDSqmNJjOv50JMZTzDVV6r2f6mvOCmw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d3d76c67-3991-4162-9a04-a96b7733d05a",
+                            SecurityStamp = "4225f50e-bd04-4b63-8558-1b2d7b86f55c",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -370,8 +400,8 @@ namespace ITS_System.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e9bdd798-7adf-4a73-ab48-955b5b6e169d",
-                            RoleId = "2d75b1b0-f968-4487-add8-aa33ea1f4ede"
+                            UserId = "92539951-1b9b-4758-bc42-ab8ff0ea9e23",
+                            RoleId = "0f49d2cc-afbc-47ff-92f8-03ccaac8526a"
                         });
                 });
 
@@ -392,6 +422,21 @@ namespace ITS_System.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FlexAppealFitness.Models.EquipmentListEntry", b =>
+                {
+                    b.HasOne("ITS_System.Models.ClassSchedule", null)
+                        .WithMany("Equpiments")
+                        .HasForeignKey("ClassScheduleId");
+
+                    b.HasOne("ITS_System.Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipment");
                 });
 
             modelBuilder.Entity("FlexAppealFitness.Models.WaitingListEntry", b =>
@@ -445,13 +490,6 @@ namespace ITS_System.Migrations
                     b.Navigation("Instructor");
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("ITS_System.Models.Equipment", b =>
-                {
-                    b.HasOne("ITS_System.Models.ClassSchedule", null)
-                        .WithMany("Equpiments")
-                        .HasForeignKey("ClassScheduleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
