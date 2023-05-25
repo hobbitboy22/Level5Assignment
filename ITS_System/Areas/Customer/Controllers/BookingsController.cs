@@ -7,17 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace FlexAppealFitness.Areas.Customer.Views
+namespace FlexAppealFitness.Areas.Customer.Controllers
 {
     [Area("Customer")]
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public BookingsController(ApplicationDbContext context)
+        public BookingsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Customer/Bookings
@@ -47,10 +50,19 @@ namespace FlexAppealFitness.Areas.Customer.Views
         }
 
         // GET: Customer/Bookings/Create
-        public IActionResult Create()
+        public IActionResult Create(int classId)
         {
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId");
-            return View();
+
+            var booking = new Booking
+            {
+                ClassId = classId,
+                TimeStamp = DateTime.Now,
+                Attendee = _userManager.GetUserAsync(User).Result
+            };
+    
+    
+            return View(booking);
         }
 
         // POST: Customer/Bookings/Create
@@ -58,10 +70,14 @@ namespace FlexAppealFitness.Areas.Customer.Views
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClassId,TimeStamp,Status")] Booking booking)
+        public async Task<IActionResult> Create([Bind("Id,ClassId,TimeStamp")] Booking booking)
         {
             if (ModelState.IsValid)
             {
+                var currentUser = await _userManager.GetUserAsync(User);
+
+                booking.Attendee = currentUser;
+
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -92,7 +108,7 @@ namespace FlexAppealFitness.Areas.Customer.Views
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassId,TimeStamp,Status")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassId,TimeStamp")] Booking booking)
         {
             if (id != booking.Id)
             {

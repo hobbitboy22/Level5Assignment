@@ -19,10 +19,6 @@ namespace ITS_System.Models
         [Required]
         public IdentityUser Attendee { get; set; }
 
-        [Required]
         public DateTime TimeStamp { get; set; }
-
-        [Required]
-        public BookingStatus Status { get; set; }
     }
 }

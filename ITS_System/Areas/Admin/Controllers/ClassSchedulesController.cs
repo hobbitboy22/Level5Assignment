@@ -69,8 +69,7 @@ namespace FlexAppealFitness.Areas.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ClassSchedule classSchedule, List<int> EquipmentList)
         {
-            if (/*classSchedule.ClassName != null &&*/
-                classSchedule.InstructorId != null &&
+            if (classSchedule.InstructorId != null &&
                 classSchedule.DateTime != null &&
                 classSchedule.RoomId != null &&
                 classSchedule.MaxNumbersOfBooking > 0 &&

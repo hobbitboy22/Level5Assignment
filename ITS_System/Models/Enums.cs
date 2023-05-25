@@ -8,11 +8,5 @@
             Full,
             Cancelled
         }
-
-        public enum BookingStatus
-        {
-            Active,
-            Cancelled
-        }
     }   
 }
