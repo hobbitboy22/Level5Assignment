@@ -1,42 +1,26 @@
 ﻿@model IEnumerable<ITS_System.Models.Booking>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manage Bookings";
 }
 
-<h1>Index</h1>
+<h1>Manage Bookings</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Class)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeStamp)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class.InstructorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeStamp)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="d-flex flex-wrap justify-content-between">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Class.Name)</h5>
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.TimeStamp)</h5>
+                <p class="card-text">
+                    <strong>Instructor:</strong> @Html.DisplayFor(modelItem => item.Class.Name) <br />
+                    <strong>Max Booking:</strong> @Html.DisplayFor(modelItem => item.TimeStamp) <br />
+                </p>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-danger w-100" asp-action="Delete" asp-route-id="@item.Id">Delete</a>       
+                </div>
+            </div>
+        </div>
+    }
+</div>

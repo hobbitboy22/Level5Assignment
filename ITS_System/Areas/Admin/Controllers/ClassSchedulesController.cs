@@ -93,7 +93,7 @@ namespace FlexAppealFitness.Areas.Admin
                         AddedOn = DateTime.Now
                     };
 
-                    classSchedule.EqupimentList.Add(equipmentListEntry);
+                    classSchedule.EquipmentList.Add(equipmentListEntry);
 
                 }
 

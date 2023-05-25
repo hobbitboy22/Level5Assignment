@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Customer Dashboard";
 }
 
@@ -9,13 +9,13 @@
 <div class = "container">
     <div class="container text-center">
         <div class="row">
-            <div class="col-8 mt-3">
+            <div class="col-4 mt-3">
                 <div class="card" style="width: 25rem; height: 25rem">
                   <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title"></h5>
                     <p class="card-text">Click to Vew Classes</p>
                     <div class = "card-footer">
-                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="ViewClasses" asp-action="Index">View Classes</a>
+                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="Home" asp-action="ViewClasses">View Classes</a>
                     </div>
                   </div>
                 </div>  
@@ -26,7 +26,18 @@
                     <h5 class="card-title"></h5>
                     <p class="card-text">Click to view bookings</p>
                     <div class = "card-footer">
-                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="Bookings" asp-action="Index">View Bookings</a>
+                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="Booking" asp-action="Index">View Bookings</a>
+                    </div>
+                  </div>    
+                </div>  
+            </div>
+            <div class="col-4 mt-3">
+                <div class="card" style="width: 25rem; height: 25rem">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">Click to view bookings</p>
+                    <div class = "card-footer">
+                        <a class="btn btn-primary mx-auto" asp-area="Customer" asp-controller="Bookings" asp-action="Index">Manage Bookings</a>
                     </div>
                   </div>    
                 </div>  

@@ -7,26 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ITS_System.Data;
 using ITS_System.Models;
-using Microsoft.AspNetCore.Identity;
 
-namespace FlexAppealFitness.Areas.Customer.Controllers
+namespace FlexAppealFitness.Areas.Customer.Views
 {
     [Area("Customer")]
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public BookingsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public BookingsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         // GET: Customer/Bookings
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bookings.Include(b => b.Class);
+            var applicationDbContext = _context.Bookings.Include(b => b.Attendee).Include(b => b.Class);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -39,6 +36,7 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
             }
 
             var booking = await _context.Bookings
+                .Include(b => b.Attendee)
                 .Include(b => b.Class)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (booking == null)
@@ -50,19 +48,11 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
         }
 
         // GET: Customer/Bookings/Create
-        public IActionResult Create(int classId)
+        public IActionResult Create()
         {
+            ViewData["AttendeeId"] = new SelectList(_context.Users, "Id", "Id");
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId");
-
-            var booking = new Booking
-            {
-                ClassId = classId,
-                TimeStamp = DateTime.Now,
-                Attendee = _userManager.GetUserAsync(User).Result
-            };
-    
-    
-            return View(booking);
+            return View();
         }
 
         // POST: Customer/Bookings/Create
@@ -70,18 +60,15 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ClassId,TimeStamp")] Booking booking)
+        public async Task<IActionResult> Create([Bind("Id,ClassId,AttendeeId,TimeStamp")] Booking booking)
         {
             if (ModelState.IsValid)
             {
-                var currentUser = await _userManager.GetUserAsync(User);
-
-                booking.Attendee = currentUser;
-
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttendeeId"] = new SelectList(_context.Users, "Id", "Id", booking.AttendeeId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             return View(booking);
         }
@@ -99,6 +86,7 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
             {
                 return NotFound();
             }
+            ViewData["AttendeeId"] = new SelectList(_context.Users, "Id", "Id", booking.AttendeeId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             return View(booking);
         }
@@ -108,7 +96,7 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassId,TimeStamp")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ClassId,AttendeeId,TimeStamp")] Booking booking)
         {
             if (id != booking.Id)
             {
@@ -135,6 +123,7 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttendeeId"] = new SelectList(_context.Users, "Id", "Id", booking.AttendeeId);
             ViewData["ClassId"] = new SelectList(_context.Schedule, "Id", "InstructorId", booking.ClassId);
             return View(booking);
         }
@@ -148,6 +137,7 @@ namespace FlexAppealFitness.Areas.Customer.Controllers
             }
 
             var booking = await _context.Bookings
+                .Include(b => b.Attendee)
                 .Include(b => b.Class)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (booking == null)
